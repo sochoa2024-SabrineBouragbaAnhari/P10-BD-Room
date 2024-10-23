@@ -1,5 +1,6 @@
 package net.iesseveroochoa.sabrinebouragba.tareasv01.ui.screens.tarea
 
+import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
@@ -11,8 +12,13 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.width
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import net.iesseveroochoa.sabrinebouragba.tareasv01.ui.components.ControlSwitch
@@ -21,21 +27,28 @@ import net.iesseveroochoa.sabrinebouragba.tareasv01.ui.components.MenuDesplegabl
 import net.iesseveroochoa.sabrinebouragba.tareasv01.ui.components.RatingBar
 import net.iesseveroochoa.sabrinebouragba.tareasv01.ui.components.UnaLinea
 import net.iesseveroochoa.sabrinebouragba.tareasv01.ui.components.VariasLineas
+import net.iesseveroochoa.sabrinebouragba.tareasv01.ui.theme.ColorPrioridadAlta
 import net.iesseveroochoa.sabrinebouragba.tareasv01.ui.theme.TareasV01Theme
 
 @Composable
 fun PantallaInicial() {
+    var prioridadSeleccionada by remember { mutableStateOf("") }
+
+    val colorFondo= if (prioridadSeleccionada== "Alta") ColorPrioridadAlta else Color.Transparent
+
     Column (
         modifier = Modifier
             .fillMaxSize()
+            .background(colorFondo)
             .padding(16.dp) // Espaciado global para evitar que los elementos queden pegados a los bordes
     ) {
         // Fila para el menú desplegable
         Row(
-            modifier = Modifier
-                .fillMaxWidth()
+            modifier = Modifier.fillMaxWidth()
         ) {
-            MenuDesplegable()
+            MenuDesplegable(onPrioridadChange = { nuevaPrioridad ->
+                prioridadSeleccionada = nuevaPrioridad
+            })
         }
 
         Spacer(modifier = Modifier.height(16.dp)) // Espaciado entre secciones

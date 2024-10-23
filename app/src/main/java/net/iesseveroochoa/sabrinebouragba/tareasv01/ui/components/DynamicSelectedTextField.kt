@@ -6,7 +6,6 @@ import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
-import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
@@ -41,7 +40,10 @@ import net.iesseveroochoa.sabrinebouragba.tareasv01.ui.theme.ColorPrioridadAlta
 import net.iesseveroochoa.sabrinebouragba.tareasv01.ui.theme.TareasV01Theme
 
 @Composable
-fun MenuDesplegable(modifier: Modifier = Modifier) {
+fun MenuDesplegable(
+    onPrioridadChange: (String) -> Unit,
+    modifier: Modifier = Modifier
+) {
     val categorias = stringArrayResource(R.array.categorias_array)
     val prioridades = stringArrayResource(R.array.prioridades_array)
 
@@ -50,6 +52,8 @@ fun MenuDesplegable(modifier: Modifier = Modifier) {
 
 
     val colorFondo = if (prioridadSeleccionada == "Alta") ColorPrioridadAlta else Color.Transparent
+
+    onPrioridadChange(prioridadSeleccionada)
 
     Column(
         modifier = modifier
@@ -85,7 +89,7 @@ fun MenuDesplegable(modifier: Modifier = Modifier) {
                 )
             }
 
-            Spacer(modifier = Modifier.width(16.dp)) // Añadir espacio entre los dropdowns y la imagen
+//            Spacer(modifier = Modifier.width(16.dp)) // Añadir espacio entre los dropdowns y la imagen
 
             Image(
                 painter = painterResource(R.drawable.techo),
@@ -196,6 +200,7 @@ fun DynamiSelectedTextField(
 @Composable
 fun PantallaInicialPreview() {
     TareasV01Theme {
-        MenuDesplegable()
+        MenuDesplegable(onPrioridadChange = { nuevaPrioridad ->
+        })
     }
 }
