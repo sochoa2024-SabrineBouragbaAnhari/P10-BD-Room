@@ -21,4 +21,12 @@
     <string name="label_pagado">Pagado</string>">
     <string name="label_noPagado">No pagado</string>
 
+    <string name="label_estado_tarea">Estado de la tarea</string>
+
+    <string-array name="estadoTarea_array">
+        <item>Abierta</item>
+        <item>En Curso</item>
+        <item>Cerrada</item>
+    </string-array>
+
 </resources>
