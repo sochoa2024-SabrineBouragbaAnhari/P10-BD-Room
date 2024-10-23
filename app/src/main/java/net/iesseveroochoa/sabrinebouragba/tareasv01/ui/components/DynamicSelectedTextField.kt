@@ -53,15 +53,19 @@ fun MenuDesplegable(modifier: Modifier = Modifier) {
 
     Column(
         modifier = modifier
-            .fillMaxSize()
+            .fillMaxWidth()
             .background(colorFondo)
-            .padding(8.dp) //Separar los elementos de los bordes
+            .padding(8.dp)
     ) {
         Row(
-            modifier = Modifier.fillMaxWidth(),
             horizontalArrangement = Arrangement.SpaceBetween // Distribuye los elementos
         ) {
-            Column(modifier = Modifier.weight(1f)) {
+            Column(modifier = Modifier
+                .fillMaxWidth()
+                .background(colorFondo)
+                .padding(8.dp)
+                .weight(1f)
+            ) {
                 DynamiSelectedTextField(
                     selectedValue = categoriaSeleccionada,
                     options = categorias.toList(),
@@ -91,16 +95,9 @@ fun MenuDesplegable(modifier: Modifier = Modifier) {
                     .clip(RoundedCornerShape(35.dp))
                     .fillMaxWidth()
                     .padding(8.dp)
+                    .align(Alignment.CenterVertically)
             )
         }
-
-        Spacer(modifier = Modifier.height(16.dp))
-
-        ControlSwitch()
-
-        Spacer(modifier = Modifier.height(16.dp))
-
-        EstadoTarea()
     }
 
 }
