@@ -10,6 +10,11 @@ import androidx.compose.foundation.layout.wrapContentSize
 import androidx.compose.material3.Button
 import androidx.compose.material3.DropdownMenu
 import androidx.compose.material3.DropdownMenuItem
+import androidx.compose.material3.ExperimentalMaterial3Api
+import androidx.compose.material3.ExposedDropdownMenuBox
+import androidx.compose.material3.ExposedDropdownMenuDefaults
+import androidx.compose.material3.OutlinedTextField
+import androidx.compose.material3.OutlinedTextFieldDefaults
 import androidx.compose.material3.Text
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
@@ -36,47 +41,65 @@ fun PantallaInicial() {
     Column (
         modifier = Modifier.padding(8.dp)
     ){
-        DropdownMenus(
+        DynamiSelectedTextField(
+            selectedValue = categoriaSeleccionada,
+            options = categorias.toList(),
             label = stringResource(R.string.label_categoria),
-            opciones = categorias.toList(),
-            seleccion = { categoriaSeleccionada = it }
+            onValueChangedEvent = { categoriaSeleccionada = it }
         )
 
         Spacer(modifier = Modifier.height(16.dp))
 
-        DropdownMenus(
+        DynamiSelectedTextField(
+            selectedValue = prioridadSeleccionada,
+            options = prioridades.toList(),
             label = stringResource(R.string.label_prioridad),
-            opciones = prioridades.toList(),
-            seleccion = { prioridadSeleccionada = it }
+            onValueChangedEvent = { prioridadSeleccionada = it }
         )
     }
 }
 
+@OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun DropdownMenus(label: String, opciones: List<String>, seleccion: (String) -> Unit) {
+fun DynamiSelectedTextField(
+    selectedValue: String,
+    options: List<String>,
+    label: String,
+    onValueChangedEvent: (String) -> Unit,
+    modifier: Modifier = Modifier
+) {
     var expanded by remember { mutableStateOf(false) }
-    var seleccionActual by remember { mutableStateOf(opciones[0]) }
 
-    Column {
-        Text(text = label)
-        Box(modifier = Modifier.fillMaxWidth().wrapContentSize(Alignment.TopStart)) {
-            Button(onClick = { expanded = true }) {
-                Text(text = seleccionActual)
-            }
-            DropdownMenu(
-                expanded = expanded,
-                onDismissRequest = { expanded = false }
-            ) {
-               opciones.forEach { opcion ->
-                   DropdownMenuItem(
-                       text = { Text(text = opcion) },
-                       onClick = {
-                           seleccionActual = opcion
-                           seleccion(opcion)
-                           expanded = false
-                       }
-                   )
-               }
+    ExposedDropdownMenuBox(
+        expanded = expanded,
+        onExpandedChange = { expanded = !expanded },
+        modifier = modifier
+    ) {
+        OutlinedTextField(
+            readOnly = true,
+            value = selectedValue,
+            onValueChange = {},
+            label = { Text(text = label) },
+            trailingIcon = {
+                ExposedDropdownMenuDefaults.TrailingIcon(expanded = expanded)
+            },
+            colors = OutlinedTextFieldDefaults.colors(),
+            modifier = Modifier
+                .menuAnchor()
+                .fillMaxWidth()
+        )
+        ExposedDropdownMenu(
+            expanded = expanded,
+            onDismissRequest = { expanded = false }
+        ) {
+            options.forEach { option ->
+                DropdownMenuItem(
+                    text = { Text(text = option) },
+                    onClick = {
+                        expanded = false
+                        onValueChangedEvent(option)
+                    }
+                )
             }
         }
     }
