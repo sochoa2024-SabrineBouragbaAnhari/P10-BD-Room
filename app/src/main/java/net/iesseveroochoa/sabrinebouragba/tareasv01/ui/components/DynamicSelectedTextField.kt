@@ -1,24 +1,34 @@
 package net.iesseveroochoa.sabrinebouragba.tareasv01.ui.components
 
+import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
+import androidx.compose.foundation.layout.Arrangement
+import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
+import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
+import androidx.compose.foundation.layout.size
 import androidx.compose.material3.DropdownMenuItem
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.ExposedDropdownMenuBox
 import androidx.compose.material3.ExposedDropdownMenuDefaults
 import androidx.compose.material3.OutlinedTextField
 import androidx.compose.material3.OutlinedTextFieldDefaults
+import androidx.compose.material3.Switch
+import androidx.compose.material3.SwitchDefaults
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
+import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringArrayResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
@@ -34,28 +44,77 @@ fun MenuDesplegable(modifier: Modifier = Modifier) {
 
     var categoriaSeleccionada by remember { mutableStateOf("") }
     var prioridadSeleccionada by remember { mutableStateOf("") }
+    var estaPagado by remember { mutableStateOf(false) }
 
-    var colorFondo= if (prioridadSeleccionada == "Alta") ColorPrioridadAlta else Color.Transparent
+    val colorFondo= if (prioridadSeleccionada == "Alta") ColorPrioridadAlta else Color.Transparent
 
-    Column (
+    Box (
         modifier = modifier
-        .background(colorFondo)
+            .fillMaxSize() // Box ocupa toda la pantalla
+            .background(colorFondo)
     ){
-        DynamiSelectedTextField(
-            selectedValue = categoriaSeleccionada,
-            options = categorias.toList(),
-            label = stringResource(R.string.label_categoria),
-            onValueChangedEvent = { categoriaSeleccionada = it }
-        )
+        Column(
+            modifier = Modifier.fillMaxSize()
+        ) {
+            DynamiSelectedTextField(
+                selectedValue = categoriaSeleccionada,
+                options = categorias.toList(),
+                label = stringResource(R.string.label_categoria),
+                onValueChangedEvent = { categoriaSeleccionada = it }
+            )
 
-        Spacer(modifier = Modifier.height(16.dp))
+            Spacer(modifier = Modifier.height(16.dp))
 
-        DynamiSelectedTextField(
-            selectedValue = prioridadSeleccionada,
-            options = prioridades.toList(),
-            label = stringResource(R.string.label_prioridad),
-            onValueChangedEvent = { prioridadSeleccionada = it }
-        )
+            DynamiSelectedTextField(
+                selectedValue = prioridadSeleccionada,
+                options = prioridades.toList(),
+                label = stringResource(R.string.label_prioridad),
+                onValueChangedEvent = { prioridadSeleccionada = it }
+            )
+
+            Spacer(modifier = Modifier.height(16.dp))
+
+            Row(
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .fillMaxWidth(),
+                horizontalArrangement = Arrangement.SpaceBetween,
+                verticalAlignment = Alignment.CenterVertically
+            ) {
+                Row(
+                    verticalAlignment = Alignment.CenterVertically
+                )
+                {
+                    Image(
+                        painter = if (estaPagado) {
+                            painterResource(R.drawable.ic_pagado)
+                        } else {
+                            painterResource(R.drawable.ic_no_pagado)
+                        },
+                        contentDescription = "Imagen de un icono de pago",
+                        modifier = Modifier.size(24.dp)
+                    )
+
+                    Text(
+                        if (estaPagado) {
+                            stringResource(R.string.label_pagado)
+                        } else {
+                            stringResource(R.string.label_noPagado)
+                        }
+                    )
+
+                    Switch(
+                        checked = estaPagado,
+                        onCheckedChange = { estaPagado = it },
+                        colors = SwitchDefaults.colors(
+                            checkedThumbColor = Color.Green,
+                            uncheckedThumbColor = Color.Red
+                        )
+                    )
+                }
+            }
+
+        }
     }
 }
 
