@@ -5,15 +5,17 @@
     <string name="label_prioridad">Prioridad</string>
 
     <string-array name="categorias_array">
-        <item>Trabajo</item>
-        <item>Personal</item>
+        <item>Reparación</item>
+        <item>Instalación</item>
+        <item>Mantenimiento</item>
+        <item>Comercial</item>
         <item>Otro</item>
     </string-array>
 
     <string-array name="prioridades_array">
-        <item>Alta</item>
-        <item>Media</item>
         <item>Baja</item>
+        <item>Media</item>
+        <item>Alta</item>
     </string-array>
 
 </resources>
