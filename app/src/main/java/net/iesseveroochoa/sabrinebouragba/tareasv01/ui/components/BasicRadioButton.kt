@@ -1,6 +1,5 @@
 package net.iesseveroochoa.sabrinebouragba.tareasv01.ui.components
 
-import android.widget.Space
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
@@ -36,9 +35,17 @@ fun EstadoTarea(){
             Spacer(modifier = Modifier.width(10.dp))
 
             Image(
-                painterResource(R.drawable.ic_tarea),
-                contentDescription = "Imagen de un icono de tarea",
+
+                painter = if (estadoTarea == estadosTarea[0]){
+                    painterResource(R.drawable.ic_abierta)
+                }else if (estadoTarea == estadosTarea[1]){
+                    painterResource(R.drawable.ic_en_curso)
+                }else{
+                    painterResource(R.drawable.ic_cerrada)
+                },
+                contentDescription = "Imagen dependiendo del estado de la tarea",
                 modifier = Modifier.width(24.dp)
+
             )
         }
 
