@@ -1,3 +1,19 @@
 <resources>
     <string name="app_name">TareasV01</string>
+
+    <string name="label_categoria">Categoría</string>
+    <string name="label_prioridad">Prioridad</string>
+
+    <string-array name="categorias_array">
+        <item>Trabajo</item>
+        <item>Personal</item>
+        <item>Otro</item>
+    </string-array>
+
+    <string-array name="prioridades_array">
+        <item>Alta</item>
+        <item>Media</item>
+        <item>Baja</item>
+    </string-array>
+
 </resources>
