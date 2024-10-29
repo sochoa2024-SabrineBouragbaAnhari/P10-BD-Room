@@ -30,14 +30,7 @@ class TareaViewModel(application: Application): AndroidViewModel(application){
         } else {
             colorFondo = Color.Transparent
         }
-
-        _uiStateTarea.value = _uiStateTarea.value.copy(
-            prioridad = nuevaPrioridad,
-            colorFondo = colorFondo
-        )
-
     }
-
 }
 
 

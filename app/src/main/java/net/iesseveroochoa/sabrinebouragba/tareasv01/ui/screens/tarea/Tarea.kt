@@ -21,7 +21,7 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import net.iesseveroochoa.sabrinebouragba.tareasv01.ui.components.ControlSwitch
-import net.iesseveroochoa.sabrinebouragba.tareasv01.ui.components.EstadoTarea
+import net.iesseveroochoa.sabrinebouragba.tareasv01.ui.components.BasicRadioButton
 import net.iesseveroochoa.sabrinebouragba.tareasv01.ui.components.MenuDesplegable
 import net.iesseveroochoa.sabrinebouragba.tareasv01.ui.components.RatingBar
 import net.iesseveroochoa.sabrinebouragba.tareasv01.ui.components.UnaLinea
@@ -67,7 +67,7 @@ fun PantallaInicial() {
             modifier = Modifier.fillMaxWidth(),
             verticalAlignment = Alignment.CenterVertically
         ) {
-            EstadoTarea()
+            BasicRadioButton()
         }
 
         Spacer(modifier = Modifier.height(16.dp))

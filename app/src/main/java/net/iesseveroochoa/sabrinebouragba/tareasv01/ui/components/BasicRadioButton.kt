@@ -22,7 +22,7 @@ import androidx.compose.ui.unit.dp
 import net.iesseveroochoa.sabrinebouragba.tareasv01.R
 
 @Composable
-fun EstadoTarea(){
+fun BasicRadioButton(){
     val estadosTarea= stringArrayResource(R.array.estadoTarea_array)
     var estadoTarea by remember { mutableStateOf(estadosTarea[0]) }
     Column()
@@ -73,5 +73,5 @@ fun EstadoTarea(){
 @Preview(showBackground = true)
 @Composable
 fun EstadoTareaPreview() {
-    EstadoTarea()
+    BasicRadioButton()
 }
