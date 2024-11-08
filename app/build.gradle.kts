@@ -69,4 +69,10 @@ dependencies {
 
     implementation("androidx.lifecycle:lifecycle-viewmodel-compose:2.8.6")
 
+    // Navigation
+    implementation("androidx.navigation:navigation-compose:2.8.2")
+    // ViewModel
+    implementation("androidx.lifecycle:lifecycle-viewmodel-compose:2.8.6")
+    // Serialización
+    implementation("org.jetbrains.kotlinx:kotlinx-serialization-json:1.6.3")
 }
