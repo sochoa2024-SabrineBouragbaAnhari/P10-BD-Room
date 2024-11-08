@@ -42,5 +42,4 @@ data class Tarea(
         tecnico = tecnico,
         descripcion = descripcion
     )
-
 }
