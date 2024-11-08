@@ -1,5 +1,6 @@
 package net.iesseveroochoa.sabrinebouragba.tareasv01.ui.screens.tarea
 
+import android.annotation.SuppressLint
 import android.app.Application
 import androidx.compose.ui.graphics.Color
 import androidx.lifecycle.AndroidViewModel
@@ -10,6 +11,7 @@ import net.iesseveroochoa.sabrinebouragba.tareasv01.R
 import net.iesseveroochoa.sabrinebouragba.tareasv01.ui.theme.ColorPrioridadAlta
 
 class TareaViewModel(application: Application): AndroidViewModel(application) {
+    @SuppressLint("StaticFieldLeak")
     private val context = application.applicationContext
 
     // Listas desde strings.xml
@@ -18,7 +20,7 @@ class TareaViewModel(application: Application): AndroidViewModel(application) {
     val listaEstado = context.resources.getStringArray(R.array.estadoTarea_array).toList()
 
     // Prioridad Alta
-    val PRIORIDAD_ALTA = listaPrioridad[0]
+    val PRIORIDAD_ALTA: String = listaPrioridad[0]
 
     // Estado inicial de la UI
     private val _uiStateTarea = MutableStateFlow(
@@ -47,6 +49,18 @@ class TareaViewModel(application: Application): AndroidViewModel(application) {
     // Funciones para actualizar cada estado en la UI
     fun onValueChangeEstado(nuevoEstado: String) {
         _uiStateTarea.value = _uiStateTarea.value.copy(estado = nuevoEstado)
+    }
+
+    fun onValueChangeCategoria(nuevaCategoria: String) {
+        _uiStateTarea.value = _uiStateTarea.value.copy(categoria = nuevaCategoria)
+    }
+
+    fun onValueChangePagado(nuevoPagado: Boolean) {
+        _uiStateTarea.value = _uiStateTarea.value.copy(pagado = nuevoPagado)
+    }
+
+    fun onValueChangeValoracion(nuevaValoracion: Int) {
+        _uiStateTarea.value = _uiStateTarea.value.copy(valoracion = nuevaValoracion)
     }
 
     fun onTecnicoValueChange(nuevoTecnico: String) {

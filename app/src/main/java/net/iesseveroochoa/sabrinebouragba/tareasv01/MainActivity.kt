@@ -4,6 +4,8 @@ import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.activity.enableEdgeToEdge
+import androidx.compose.runtime.Composable
+import androidx.compose.ui.tooling.preview.Preview
 import net.iesseveroochoa.sabrinebouragba.tareasv01.ui.screens.tarea.TareaScreen
 import net.iesseveroochoa.sabrinebouragba.tareasv01.ui.theme.TareasV01Theme
 
@@ -16,5 +18,13 @@ class MainActivity : ComponentActivity() {
                 TareaScreen()
             }
         }
+    }
+}
+
+@Preview(showBackground = true)
+@Composable
+fun GreetingPreview() {
+    TareasV01Theme {
+        TareaScreen()
     }
 }

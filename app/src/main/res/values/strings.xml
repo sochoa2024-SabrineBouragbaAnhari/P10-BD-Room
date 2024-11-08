@@ -1,6 +1,10 @@
 <resources xmlns:android="http://schemas.android.com/apk/res/android">
     <string name="app_name">TareasV01</string>
 
+    <string name="label_rellenar">Rellene todos los campos</string>
+    <string name="label_guardar">Guardar</string>
+    <string name="label_imagen">Imagen</string>
+
     <string name="label_categoria">Categoria</string>
     <string name="label_prioridad">Prioridad</string>
 
@@ -30,9 +34,11 @@
     </string-array>
 
     <string name="valoracion">Valoración cliene</string>
-
     <string name="tecnico">Técnico</string>
-
     <string name="descripcion">Descripción</string>
+    <string name="label_tareaG">Tarea guardada</string>
+
+    <string name="label_atencion">Atención</string>
+    <string name="label_confirmacion">¿Desea guardar los cambios?</string>
 
 </resources>
