@@ -38,6 +38,7 @@ import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
+import androidx.compose.ui.text.input.ImeAction
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.lifecycle.viewmodel.compose.viewModel
@@ -223,7 +224,9 @@ fun TareaScreen(
                 // Campo de texto para el nombre del técnico.
                 ShowOutlinedTextField(
                     label = R.string.tecnico,
-                    keyboardOptions = KeyboardOptions.Default,
+                    keyboardOptions = KeyboardOptions(
+                        imeAction = ImeAction.Next
+                    ),
                     value = uiStateTarea.tecnico,
                     onValueChange = {viewModel.onTecnicoValueChange(it)},
                     modifier = Modifier.fillMaxWidth()
@@ -232,7 +235,9 @@ fun TareaScreen(
                 // Campo de texto para el nombre del descipción.
                 ShowOutlinedTextField(
                     label = R.string.descripcion,
-                    keyboardOptions = KeyboardOptions.Default,
+                    keyboardOptions = KeyboardOptions(
+                        imeAction = ImeAction.Done
+                    ),
                     value = uiStateTarea.descripcion,
                     onValueChange = {viewModel.onDescripcionValueChange(it)},
                     modifier = Modifier.fillMaxWidth(),
