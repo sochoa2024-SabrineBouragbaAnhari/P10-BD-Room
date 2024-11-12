@@ -130,7 +130,7 @@ fun TareaScreen(
                             stringResource(R.string.label_editarTarea),
 
                 puedeNavegarAtras = true,
-                navegarAtras = onVolver
+                navegaAtras = onVolver
             )
         }
 
