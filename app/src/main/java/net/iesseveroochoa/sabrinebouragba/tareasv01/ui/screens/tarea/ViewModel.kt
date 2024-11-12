@@ -100,6 +100,8 @@ class TareaViewModel(application: Application): AndroidViewModel(application) {
         )
     }
 
+    // Metodos para usar los datos de Tarea ----------------------
+    
     fun tareaToUiState(tarea: Tarea) {
         _uiStateTarea.value = _uiStateTarea.value.copy(
             categoria = listaCategoria[tarea.categoria],
@@ -149,12 +151,6 @@ class TareaViewModel(application: Application): AndroidViewModel(application) {
         tarea = Repository.getTarea(id)
         //si no es nueva inicia la UI con los valores de la tarea
         if (tarea != null) tareaToUiState(tarea!!)
-    }
-
-
-    class TareaViewModel: ViewModel() {
-        private val _uiStateTarea = MutableStateFlow(TareaUIState())
-        val uiStateTarea: StateFlow<TareaUIState> = _uiStateTarea.asStateFlow()
     }
 
 }
