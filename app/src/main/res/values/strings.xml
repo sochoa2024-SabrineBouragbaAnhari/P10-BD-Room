@@ -41,4 +41,6 @@
     <string name="label_atencion">Atención</string>
     <string name="label_confirmacion">¿Desea guardar los cambios?</string>
 
+    <string name="label_atras">Ir atrás</string>
+
 </resources>

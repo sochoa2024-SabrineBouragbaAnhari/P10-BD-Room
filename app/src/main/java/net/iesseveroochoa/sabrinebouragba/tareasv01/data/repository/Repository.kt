@@ -7,7 +7,7 @@ object Repository {
     // Inicia el Objeto singleton
     operator fun invoke() {
         // Iniciamos el modelo
-        TempModelTareas()
+        TempModelTareas
     }
 
     fun addTarea(tarea: Tarea) = TempModelTareas.addTarea(tarea)

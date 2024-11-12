@@ -4,6 +4,7 @@ import android.annotation.SuppressLint
 import android.app.Application
 import androidx.compose.ui.graphics.Color
 import androidx.lifecycle.AndroidViewModel
+import androidx.lifecycle.ViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asStateFlow
@@ -148,6 +149,12 @@ class TareaViewModel(application: Application): AndroidViewModel(application) {
         tarea = Repository.getTarea(id)
         //si no es nueva inicia la UI con los valores de la tarea
         if (tarea != null) tareaToUiState(tarea!!)
+    }
+
+
+    class TareaViewModel: ViewModel() {
+        private val _uiStateTarea = MutableStateFlow(TareaUIState())
+        val uiStateTarea: StateFlow<TareaUIState> = _uiStateTarea.asStateFlow()
     }
 
 }

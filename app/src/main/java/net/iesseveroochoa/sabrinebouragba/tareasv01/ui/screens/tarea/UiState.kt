@@ -1,6 +1,8 @@
 package net.iesseveroochoa.sabrinebouragba.tareasv01.ui.screens.tarea
 
 import androidx.compose.ui.graphics.Color
+import net.iesseveroochoa.sabrinebouragba.tareasv01.data.db.entities.Tarea
+import javax.sql.DataSource
 
 
 data class UiStateTarea(
@@ -14,5 +16,6 @@ data class UiStateTarea(
     val colorFondo: Color = Color.Transparent,
     val esFormularioValido: Boolean = false,
     val mostrarDialogo: Boolean = false,
-    val esTareaNueva: Boolean = true
+    val esTareaNueva: Boolean = true,
+    val listaTareas: MutableList<Tarea> = DataSource.iniciaPruebaTareas
 )
