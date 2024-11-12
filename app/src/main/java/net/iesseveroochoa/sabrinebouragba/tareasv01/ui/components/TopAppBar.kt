@@ -21,24 +21,27 @@ import net.iesseveroochoa.sabrinebouragba.tareasv01.R
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun AppBar(
-    modifier: Modifier = Modifier,
     tituloPantallaActual: String,
     puedeNavegarAtras: Boolean,
-    navegarAtras: () -> Unit={}
+    navegaAtras: () -> Unit={},
+    modifier: Modifier = Modifier
 ) {
     TopAppBar(
-        title = { Text(tituloPantallaActual) },
+        //Recuperamos el título del enum AppScreen
+        title = { Text(text = tituloPantallaActual) },
         colors = TopAppBarDefaults.mediumTopAppBarColors(
             containerColor = MaterialTheme.colorScheme.primaryContainer
         ),
         modifier = modifier,
         navigationIcon = {
-            // si es la primera pantalla no muestra el botón de retroceso
+            //si es la primera pantalla no se muestra el botón de navegación
             if (puedeNavegarAtras) {
-                IconButton(onClick = navegarAtras) {
+                //lambda que iría a la pantalla anterior
+                IconButton(onClick = navegaAtras) {
                     Icon(
                         imageVector = Icons.AutoMirrored.Filled.ArrowBack,
-                        contentDescription = stringResource(R.string.label_atras)
+                        //recuerda que el texto tiene que ir en string.xml
+                        contentDescription = R.string.label_atras.toString()
                     )
                 }
             }

@@ -42,5 +42,6 @@
     <string name="label_confirmacion">¿Desea guardar los cambios?</string>
 
     <string name="label_atras">Ir atrás</string>
-
+    <string name="label_nuevaTarea">Nueva Tarea</string>
+    <string name="label_editarTarea">Modificar Tarea</string>
 </resources>

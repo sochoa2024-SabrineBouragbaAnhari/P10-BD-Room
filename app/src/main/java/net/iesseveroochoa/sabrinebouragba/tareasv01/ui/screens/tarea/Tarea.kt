@@ -16,6 +16,7 @@ import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.foundation.verticalScroll
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Info
+import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.FloatingActionButton
 import androidx.compose.material3.Icon
 import androidx.compose.material3.OutlinedTextField
@@ -39,22 +40,27 @@ import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.input.ImeAction
-import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.lifecycle.viewmodel.compose.viewModel
 import kotlinx.coroutines.launch
 import net.iesseveroochoa.sabrinebouragba.tareasv01.R
+import net.iesseveroochoa.sabrinebouragba.tareasv01.ui.components.AppBar
 import net.iesseveroochoa.sabrinebouragba.tareasv01.ui.components.BasicRadioButton
 import net.iesseveroochoa.sabrinebouragba.tareasv01.ui.components.DialogoConfirmacion
 import net.iesseveroochoa.sabrinebouragba.tareasv01.ui.components.DynamicSelectTextField
 import net.iesseveroochoa.sabrinebouragba.tareasv01.ui.components.RatingBar
 
+@OptIn(ExperimentalMaterial3Api::class)
 @SuppressLint("ResourceType")
 @Composable
 fun TareaScreen(
     modifier: Modifier = Modifier,
-    viewModel: TareaViewModel = viewModel()
+    viewModel: TareaViewModel = viewModel(),
+    posTarea: Long?=null,
+    onMostrar: () -> Unit = {},
+    onVolver: () -> Unit = {},
 ) {
+    posTarea?.let { viewModel.getTarea(it) }
     val uiStateTarea by viewModel.uiStateTarea.collectAsState()
 
     //no sé si poner esto está bien, pero me obligaba a ponerlo.
@@ -115,7 +121,19 @@ fun TareaScreen(
                     contentDescription = stringResource(R.string.label_guardar)
                 )
             }
+        },
+        topBar = {
+            AppBar(
+                tituloPantallaActual =  if (uiStateTarea.esTareaNueva)
+                        stringResource(R.string.label_nuevaTarea)
+                        else
+                            stringResource(R.string.label_editarTarea),
+
+                puedeNavegarAtras = true,
+                navegarAtras = onVolver
+            )
         }
+
     ) { innerPadding ->
         // Comienza la UI principal.
         Surface(
@@ -303,10 +321,4 @@ fun ShowOutlinedTextField(
         keyboardOptions = keyboardOptions,
         singleLine = singleLine
     )
-}
-
-@Preview(showBackground = true)
-@Composable
-fun TareaScreenPreview() {
-    TareaScreen()
 }
