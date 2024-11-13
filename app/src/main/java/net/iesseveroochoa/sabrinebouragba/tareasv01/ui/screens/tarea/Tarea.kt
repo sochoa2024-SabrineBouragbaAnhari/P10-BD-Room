@@ -55,8 +55,7 @@ fun TareaScreen(
     modifier: Modifier = Modifier,
     viewModel: TareaViewModel = viewModel(),
     idTarea: Long?=null,
-    onVolver: () -> Unit = {},
-    onMostrar: () -> Unit = {}
+    onVolver: () -> Unit = {}
 ) {
     idTarea?.let { viewModel.getTarea(it) }
     val uiStateTarea by viewModel.uiStateTarea.collectAsState()
@@ -65,34 +64,6 @@ fun TareaScreen(
     val snackbarHostState = remember { SnackbarHostState() } // Estado para el Snackbar
     val scope = rememberCoroutineScope() // Scope para lanzar corutinas
     val context = LocalContext.current // Contexto de la aplicación
-
-//    // Carga la lista de categorías desde el string.xml y establece la categoría seleccionada por defecto.
-//    val categorias = stringArrayResource(id = R.array.categorias_array).toList()
-//    var categoriaSelected by remember { mutableStateOf(categorias[0]) }
-//
-//    // Carga la lista de prioridades desde el string.xml y establece la prioridad seleccionada por defecto.
-//    //val prioridades = stringArrayResource(id = R.array.Prioridad).toList()
-//    //var prioridadSelected by remember { mutableStateOf(prioridades[2]) }
-//
-//    // Variable booleana para controlar si está pagado o no.
-//    var checked by remember { mutableStateOf(false) }
-//
-//    // Carga la lista de estados desde el string.xml y establece el estado seleccionado por defecto.
-//    val radioEstado = stringArrayResource(R.array.estadoTarea_array).toList()
-//    val (selectedOption, onOptionSelected) = remember { mutableStateOf(radioEstado[0]) }
-//
-//    // Variable para almacenar el valor actual de la valoración del cliente.
-//    var currentRating by remember { mutableIntStateOf(0) }
-//
-//    // Variable para almacenar el valor del técnico seleccionado.
-//    var tecnicoValue by remember { mutableStateOf("") }
-//
-//    // Variable para almacenar el valor de la descripción.
-//    var descripcionValue by remember { mutableStateOf("") }
-
-    // Define el color de fondo si la prioridad seleccionada es "Alta".
-    //val PRIORIDAD_ALTA = prioridades[0]
-    //val backGroundColor = if (PRIORIDAD_ALTA == prioridadSelected) ColorPrioridadAlta else Color.Transparent
 
     Scaffold(
         modifier = Modifier.fillMaxSize(),

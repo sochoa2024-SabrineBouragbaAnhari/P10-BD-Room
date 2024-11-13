@@ -4,58 +4,49 @@ import androidx.compose.runtime.Composable
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
-import androidx.navigation.toRoute
 import net.iesseveroochoa.sabrinebouragba.tareasv01.ui.screens.listatareas.ListaTareasScreen
 import net.iesseveroochoa.sabrinebouragba.tareasv01.ui.screens.tarea.TareaScreen
 
 @Composable
 fun AppNavigation() {
     val navController = rememberNavController()
+    val listaTareas = "lista_tareas"
+    val rutaTareas = "tarea"
+    val vistaTareas = "vista_tarea"
+
     NavHost(
         navController = navController,
-        startDestination = ListaTareasDestination
+        startDestination = listaTareas
     ) {
-        composable<ListaTareasDestination> {
+        composable(listaTareas) {
             ListaTareasScreen(
                 onClickNueva = {
-                    navController.navigate(TareaDestination())
+                    navController.navigate(rutaTareas)
                 },
-                onItemModificarClick = {posTarea ->
-                    navController.navigate(TareaDestination(posTarea))
+                onItemModificarClick = { posTarea ->
+                    navController.navigate("$rutaTareas/$posTarea")
                 },
-                onItemVerClick = {posTarea ->
-                    navController.navigate(VistaTareasDestination(posTarea))
+                onItemVerClick = { posTarea ->
+                    navController.navigate("$vistaTareas/$posTarea")
                 }
             )
         }
 
-        composable<TareaDestination> {backStackEntry ->
-            val tarea: TareaDestination = backStackEntry.toRoute()
+        composable("$rutaTareas/{posTarea}") { backStackEntry ->
+            val posTarea = backStackEntry.arguments?.getString("posTarea")?.toLongOrNull()
             TareaScreen(
-                idTarea = tarea.posTarea,
-                onVolver = {
-                    navController.navigateUp()
-                },
-                onMostrar = {
-                    if (tarea.posTarea != null) {
-                        navController.navigate(VistaTareasDestination(tarea.posTarea))
-                    }
-                }
+                idTarea = posTarea,
+                onVolver = { navController.navigateUp() }
             )
         }
 
-        composable<VistaTareasDestination> {backStackEntry ->
-            val tarea: VistaTareasDestination = backStackEntry.toRoute()
+        composable("$vistaTareas/{posTarea}") { backStackEntry ->
+            val posTarea = backStackEntry.arguments?.getString("posTarea")?.toLongOrNull()
             TareaScreen(
-                idTarea = tarea.posTarea,
-                onVolver = {
-                    navController.navigateUp()
-                },
-                onVolverAInicio = {
-
-                }
+                idTarea = posTarea,
+                onVolver = { navController.navigateUp() }
             )
         }
-
     }
+
 }

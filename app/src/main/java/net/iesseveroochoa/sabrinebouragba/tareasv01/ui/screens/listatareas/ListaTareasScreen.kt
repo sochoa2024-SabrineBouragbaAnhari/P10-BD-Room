@@ -26,12 +26,11 @@ import androidx.compose.ui.unit.dp
 import androidx.lifecycle.viewmodel.compose.viewModel
 import net.iesseveroochoa.sabrinebouragba.tareasv01.R
 import net.iesseveroochoa.sabrinebouragba.tareasv01.ui.components.AppBar
-import net.iesseveroochoa.sabrinebouragba.tareasv01.ui.screens.tarea.TareaViewModel
 
 @Composable
 fun ListaTareasScreen(
     modifier: Modifier = Modifier,
-    viewModel: TareaViewModel = viewModel(),
+    viewModel: ListaViewModel = viewModel(),
     onClickNueva: () -> Unit = {},
     onItemModificarClick: (pos: Long) -> Unit = {},
     onItemVerClick: (pos: Long) -> Unit = {}
@@ -84,12 +83,10 @@ fun ListaTareasScreen(
                                 onItemModificarClick(pos.toLong())
                             }
                     )
-
                 }
                 //linea separadora
                 HorizontalDivider(color = Color.Gray, thickness = 1.dp)
             }
-
         }
     }
 }

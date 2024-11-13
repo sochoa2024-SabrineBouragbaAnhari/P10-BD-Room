@@ -8,7 +8,7 @@ import kotlin.random.Random
 
 object TempModelTareas {
     // Lista de tareas
-    private val listaTareas = ArrayList<Tarea>()
+    val listaTareas = ArrayList<Tarea>()
     // StateFlow observable
     private val _tareasStateFlow = MutableStateFlow<List<Tarea>>(listaTareas)
 
