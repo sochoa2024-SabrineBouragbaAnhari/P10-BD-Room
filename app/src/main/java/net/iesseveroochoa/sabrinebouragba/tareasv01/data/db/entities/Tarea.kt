@@ -18,10 +18,6 @@ data class Tarea(
         }
     }
 
-    override fun equals(other: Any?): Boolean {
-        return (other is Tarea) && (this.id == other.id)
-    }
-
     constructor( // Constructor sin ID (id generado automáticamente)
         categoria: Int,
         prioridad: Int,
@@ -42,4 +38,12 @@ data class Tarea(
         tecnico = tecnico,
         descripcion = descripcion
     )
+
+    override fun equals(other: Any?): Boolean {
+        return (other is Tarea) && (this.id == other.id)
+    }
+
+    override fun hashCode(): Int {
+        return id?.hashCode() ?: 0
+    }
 }

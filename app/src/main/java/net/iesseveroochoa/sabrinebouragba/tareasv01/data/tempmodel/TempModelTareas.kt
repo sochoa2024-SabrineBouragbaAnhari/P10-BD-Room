@@ -8,40 +8,37 @@ import kotlin.random.Random
 
 object TempModelTareas {
     // Lista de tareas
-    val listaTareas = ArrayList<Tarea>()
+    private val listaTareas = ArrayList<Tarea>()
     // StateFlow observable
     private val _tareasStateFlow = MutableStateFlow<List<Tarea>>(listaTareas)
 
-    // Funcion obtiene todas las tareas
-    fun getAllTareas(): Flow<List<Tarea>> {
-        return _tareasStateFlow
-    }
+    // Función para obtener todas las tareas
+    fun getAllTareas(): Flow<List<Tarea>> = _tareasStateFlow
 
-    // Funcion añade una tarea
+    // Función para añadir una tarea
     fun addTarea(tarea: Tarea) {
-        val pos = listaTareas.indexOf(tarea)
-        if (pos < 0) { // Si no existe se crea
+        val pos = listaTareas.indexOfFirst { it.id == tarea.id }
+        if (pos >= 0) {
+            // Si ya existe, reemplaza
+            listaTareas[pos] = tarea
+        } else {
+            // Si no existe, agrega la tarea con un id generado
             listaTareas.add(tarea)
-        } else { // Si existe se sustituye
-            listaTareas.set(pos, tarea)
         }
         // Actualizamos el StateFlow
         _tareasStateFlow.value = listaTareas
     }
 
-    // Funcion elimina una tarea
+    // Función para eliminar una tarea
     fun delTarea(tarea: Tarea) {
-        listaTareas.remove(tarea)
-        // Actualizamos el StateFlow
+        listaTareas.removeIf { it.id == tarea.id }
         _tareasStateFlow.value = listaTareas
     }
 
-    // Obtener tarea atraves de su id
-    fun getTarea(id: Long): Tarea? {
-        return listaTareas.find { it.id == id }
-    }
+    // Función para obtener una tarea a través de su id
+    fun getTarea(id: Long): Tarea? = listaTareas.find { it.id == id }
 
-    // Método iniciar tarea con datos de ejemplo
+    // Método para inicializar la lista de tareas con datos de ejemplo
     fun iniciaPruebaTareas() {
         val tecnicos = listOf(
             "Pepe Gotero",
@@ -54,26 +51,24 @@ object TempModelTareas {
         )
 
         val fotos = listOf(R.drawable.foto1, R.drawable.foto2, R.drawable.foto3, R.drawable.foto4)
-        lateinit var tarea: Tarea
+
         (1..10).forEach {
-            tarea = Tarea(
-                (0..4).random(),
-                (0..2).random(),
-                fotos.random().toString(),
-                Random.nextBoolean(),
-                (0..2).random(),
-                (0..5).random(),
-                tecnicos.random(),
-                "Descripción de la tarea $it: Lorem \\n ipsum dolor sit amet, consectetur adipiscing elit.\n" +
-                        "Mauris consequat ligula et vehicula mattis. \\n Etiam tristique ornare lacinia.\n" +
-                        "\\nVestibulum lacus magna, dignissim et tempor id, convallis sed augue"
+            val tarea = Tarea(
+                categoria = (0..4).random(),
+                prioridad = (0..2).random(),
+                img = fotos.random().toString(),
+                pagado = Random.nextBoolean(),
+                estado = (0..2).random(),
+                valoracion = (0..5).random(),
+                tecnico = tecnicos.random(),
+                descripcion = "Descripción de la tarea $it: Lorem ipsum dolor sit amet."
             )
             listaTareas.add(tarea)
         }
         _tareasStateFlow.value = listaTareas
     }
 
-    // Iniciar el objeto Singleton
+    // Inicializar el objeto Singleton
     operator fun invoke() {
         iniciaPruebaTareas()
     }
