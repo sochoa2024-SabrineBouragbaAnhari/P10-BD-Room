@@ -16,7 +16,6 @@ import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.foundation.verticalScroll
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Info
-import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.FloatingActionButton
 import androidx.compose.material3.Icon
 import androidx.compose.material3.OutlinedTextField
@@ -50,17 +49,16 @@ import net.iesseveroochoa.sabrinebouragba.tareasv01.ui.components.DialogoConfirm
 import net.iesseveroochoa.sabrinebouragba.tareasv01.ui.components.DynamicSelectTextField
 import net.iesseveroochoa.sabrinebouragba.tareasv01.ui.components.RatingBar
 
-@OptIn(ExperimentalMaterial3Api::class)
 @SuppressLint("ResourceType")
 @Composable
 fun TareaScreen(
     modifier: Modifier = Modifier,
     viewModel: TareaViewModel = viewModel(),
-    posTarea: Long?=null,
-    onMostrar: () -> Unit = {},
+    idTarea: Long?=null,
     onVolver: () -> Unit = {},
+    onMostrar: () -> Unit = {}
 ) {
-    posTarea?.let { viewModel.getTarea(it) }
+    idTarea?.let { viewModel.getTarea(it) }
     val uiStateTarea by viewModel.uiStateTarea.collectAsState()
 
     //no sé si poner esto está bien, pero me obligaba a ponerlo.
@@ -124,10 +122,11 @@ fun TareaScreen(
         },
         topBar = {
             AppBar(
-                tituloPantallaActual =  if (uiStateTarea.esTareaNueva)
+                tituloPantallaActual =
+                    if (uiStateTarea.esTareaNueva)
                         stringResource(R.string.label_nuevaTarea)
-                        else
-                            stringResource(R.string.label_editarTarea),
+                    else
+                        stringResource(R.string.label_editarTarea),
 
                 puedeNavegarAtras = true,
                 navegaAtras = onVolver

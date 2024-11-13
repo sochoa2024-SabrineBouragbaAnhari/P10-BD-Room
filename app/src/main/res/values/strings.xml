@@ -44,4 +44,5 @@
     <string name="label_atras">Ir atrás</string>
     <string name="label_nuevaTarea">Nueva Tarea</string>
     <string name="label_editarTarea">Modificar Tarea</string>
+    <string name="label_fav">Tareas favoritas</string>
 </resources>

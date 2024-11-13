@@ -4,7 +4,6 @@ import android.annotation.SuppressLint
 import android.app.Application
 import androidx.compose.ui.graphics.Color
 import androidx.lifecycle.AndroidViewModel
-import androidx.lifecycle.ViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asStateFlow
@@ -101,7 +100,7 @@ class TareaViewModel(application: Application): AndroidViewModel(application) {
     }
 
     // Metodos para usar los datos de Tarea ----------------------
-    
+
     fun tareaToUiState(tarea: Tarea) {
         _uiStateTarea.value = _uiStateTarea.value.copy(
             categoria = listaCategoria[tarea.categoria],
