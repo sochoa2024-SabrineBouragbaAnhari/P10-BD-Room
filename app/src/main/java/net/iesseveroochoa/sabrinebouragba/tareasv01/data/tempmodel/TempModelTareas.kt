@@ -8,35 +8,35 @@ import kotlin.random.Random
 
 object TempModelTareas {
     // Lista de tareas
-    val listaTareas = ArrayList<Tarea>()
+    val listaTareasDestination = ArrayList<Tarea>()
     // StateFlow observable
-    private val _tareasStateFlow = MutableStateFlow<List<Tarea>>(listaTareas)
+    private val _tareasStateFlow = MutableStateFlow<List<Tarea>>(listaTareasDestination)
 
     // Función para obtener todas las tareas
     fun getAllTareas(): Flow<List<Tarea>> = _tareasStateFlow
 
     // Función para añadir una tarea
     fun addTarea(tarea: Tarea) {
-        val pos = listaTareas.indexOfFirst { it.id == tarea.id }
+        val pos = listaTareasDestination.indexOfFirst { it.id == tarea.id }
         if (pos >= 0) {
             // Si ya existe, reemplaza
-            listaTareas[pos] = tarea
+            listaTareasDestination[pos] = tarea
         } else {
             // Si no existe, agrega la tarea con un id generado
-            listaTareas.add(tarea)
+            listaTareasDestination.add(tarea)
         }
         // Actualizamos el StateFlow
-        _tareasStateFlow.value = listaTareas
+        _tareasStateFlow.value = listaTareasDestination
     }
 
     // Función para eliminar una tarea
     fun delTarea(tarea: Tarea) {
-        listaTareas.removeIf { it.id == tarea.id }
-        _tareasStateFlow.value = listaTareas
+        listaTareasDestination.removeIf { it.id == tarea.id }
+        _tareasStateFlow.value = listaTareasDestination
     }
 
     // Función para obtener una tarea a través de su id
-    fun getTarea(id: Long): Tarea? = listaTareas.find { it.id == id }
+    fun getTarea(id: Long): Tarea? = listaTareasDestination.find { it.id == id }
 
     // Método para inicializar la lista de tareas con datos de ejemplo
     fun iniciaPruebaTareas() {
@@ -63,9 +63,9 @@ object TempModelTareas {
                 tecnico = tecnicos.random(),
                 descripcion = "Descripción de la tarea $it: Lorem ipsum dolor sit amet."
             )
-            listaTareas.add(tarea)
+            listaTareasDestination.add(tarea)
         }
-        _tareasStateFlow.value = listaTareas
+        _tareasStateFlow.value = listaTareasDestination
     }
 
     // Inicializar el objeto Singleton

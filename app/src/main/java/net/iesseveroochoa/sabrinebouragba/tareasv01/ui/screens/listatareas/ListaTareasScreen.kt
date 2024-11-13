@@ -29,6 +29,7 @@ fun ListaTareasScreen(
     viewModel: ListaViewModel = viewModel(),
     onClickNueva: () -> Unit = {},
     onItemModificarClick: (pos: Long) -> Unit = {},
+    onItemVerClick: (pos: Int) -> Unit = {},
 ) {
     // recuperamos el estado de pantalla
     val uiStateTarea by viewModel.listaTareasUiState.collectAsState()

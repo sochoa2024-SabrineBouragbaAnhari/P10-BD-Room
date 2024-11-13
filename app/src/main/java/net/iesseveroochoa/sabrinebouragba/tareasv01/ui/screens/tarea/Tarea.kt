@@ -6,16 +6,20 @@ import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
+import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.foundation.verticalScroll
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Info
+import androidx.compose.material3.Button
 import androidx.compose.material3.FloatingActionButton
 import androidx.compose.material3.Icon
 import androidx.compose.material3.OutlinedTextField
@@ -55,9 +59,11 @@ fun TareaScreen(
     modifier: Modifier = Modifier,
     viewModel: TareaViewModel = viewModel(),
     idTarea: Long?=null,
-    onVolver: () -> Unit = {}
+    onVolver: () -> Unit = {},
+    onMostrar: () -> Unit = {}
 ) {
     idTarea?.let { viewModel.getTarea(it) }
+    val isTareaNueva = idTarea == null
     val uiStateTarea by viewModel.uiStateTarea.collectAsState()
 
     //no sé si poner esto está bien, pero me obligaba a ponerlo.
@@ -258,6 +264,20 @@ fun TareaScreen(
                             dialogText = stringResource(R.string.label_confirmacion),
                             icon = Icons.Default.Info
                         )
+                    }
+
+                    Spacer(modifier = Modifier.height(16.dp))
+                    Row(modifier = Modifier) {
+
+                        if(!isTareaNueva){
+                            Spacer(modifier = Modifier.width(16.dp))
+                            Button(//Mostrar
+                                onClick = onMostrar,
+                                enabled = uiStateTarea.listaTareas.isNotEmpty()
+                            ) {
+                                Text(stringResource(R.string.label_verTarea))
+                            }
+                        }
                     }
                 }
             }

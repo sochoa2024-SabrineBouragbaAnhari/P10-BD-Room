@@ -17,5 +17,5 @@ data class UiStateTarea(
     val mostrarDialogo: Boolean = false,
     val esTareaNueva: Boolean = true,
 
-    val listaTareas: ArrayList<Tarea> = TempModelTareas.listaTareas
+    val listaTareas: ArrayList<Tarea> = TempModelTareas.listaTareasDestination
 )
