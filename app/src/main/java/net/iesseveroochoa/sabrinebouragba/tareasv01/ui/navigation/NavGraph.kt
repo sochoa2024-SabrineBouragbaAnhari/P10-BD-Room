@@ -25,9 +25,6 @@ fun AppNavigation() {
                 },
                 onItemModificarClick = { posTarea ->
                     navController.navigate("$rutaTareas/$posTarea")
-                },
-                onItemVerClick = { posTarea ->
-                    navController.navigate("$vistaTareas/$posTarea")
                 }
             )
         }
