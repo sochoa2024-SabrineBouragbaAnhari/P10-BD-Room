@@ -60,7 +60,7 @@ fun ListaTareasScreen(
                 .fillMaxSize()
                 .padding(padding)
         ) {
-            uiStateTarea.listaTareas.forEach { tarea ->
+            uiStateTarea.forEach { tarea ->
                 Row(
                     horizontalArrangement = Arrangement.SpaceBetween,
                     modifier = Modifier.fillMaxWidth()
@@ -74,18 +74,16 @@ fun ListaTareasScreen(
                             .align(Alignment.CenterVertically)
                     )
                     Text(
-                        text = tarea.descripcion,
+                        text = tarea.tecnico,
                         modifier = Modifier
                             .padding(8.dp)
                             .fillMaxWidth()
-                            //navegamos a la pantalla de PalabraScreen para modificar la palabra
                             .clickable {
                                 onItemModificarClick(tarea.id)
                             }
                     )
-
                 }
-                //linea separadora
+                // Línea separadora
                 HorizontalDivider(color = Color.Gray, thickness = 1.dp)
             }
         }

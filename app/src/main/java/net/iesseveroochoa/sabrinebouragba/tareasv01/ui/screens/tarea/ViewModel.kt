@@ -88,6 +88,7 @@ class TareaViewModel(application: Application): AndroidViewModel(application) {
     }
     //guardará los cambios, por el momento solo cierra el dialogo
     fun onConfirmarDialogoGuardar() {
+        guardarTarea()
         _uiStateTarea.value = _uiStateTarea.value.copy(
             mostrarDialogo = false
         )
@@ -151,5 +152,17 @@ class TareaViewModel(application: Application): AndroidViewModel(application) {
         //si no es nueva inicia la UI con los valores de la tarea
         if (tarea != null) tareaToUiState(tarea!!)
     }
+
+    fun guardarTarea() {
+        val tarea = uiStateToTarea() // Convertimos el estado a un objeto Tarea
+        if (uiStateTarea.value.esTareaNueva) {
+            // Llamar al repositorio para guardar la nueva tarea
+            Repository.addTarea(tarea)
+        } else {
+            // Llamar al repositorio para actualizar la tarea existente
+            Repository.addTarea(tarea)
+        }
+    }
+
 
 }
