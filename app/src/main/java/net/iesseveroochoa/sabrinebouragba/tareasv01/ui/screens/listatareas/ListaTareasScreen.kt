@@ -2,13 +2,16 @@ package net.iesseveroochoa.sabrinebouragba.tareasv01.ui.screens.listatareas
 
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
-import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.lazy.LazyColumn
+import androidx.compose.foundation.lazy.items
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Add
+import androidx.compose.material3.Card
+import androidx.compose.material3.CardDefaults
 import androidx.compose.material3.FloatingActionButton
 import androidx.compose.material3.HorizontalDivider
 import androidx.compose.material3.Icon
@@ -55,36 +58,45 @@ fun ListaTareasScreen(
             }
         }
     ) { padding ->
-        Column(
+        LazyColumn(
             modifier = modifier
                 .fillMaxSize()
-                .padding(padding)
+                .padding(padding),
+            verticalArrangement = Arrangement.spacedBy(10.dp)
         ) {
-            uiStateTarea.forEach { tarea ->
-                Row(
-                    horizontalArrangement = Arrangement.SpaceBetween,
-                    modifier = Modifier.fillMaxWidth()
-                ){
-                    Icon(
-                        painter = painterResource(R.drawable.ic_ver),
-                        contentDescription = "mostrar",
-                        modifier = Modifier.clickable {
-                            onItemVerClick(tarea.id)
-                        }
-                            .align(Alignment.CenterVertically)
-                    )
-                    Text(
-                        text = tarea.tecnico,
-                        modifier = Modifier
-                            .padding(8.dp)
-                            .fillMaxWidth()
-                            .clickable {
-                                onItemModificarClick(tarea.id)
+            items(uiStateTarea) { tarea ->
+                Card(
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .padding(horizontal = 10.dp)
+                        .clickable {onItemModificarClick(tarea.id)},
+                    colors = CardDefaults.cardColors(containerColor = Color.LightGray)
+                ) {
+                    Row(
+                        horizontalArrangement = Arrangement.SpaceBetween,
+                        modifier = Modifier.fillMaxWidth()
+                    ){
+                        Icon(
+                            painter = painterResource(R.drawable.ic_ver),
+                            contentDescription = "mostrar",
+                            modifier = Modifier.clickable {
+                                onItemVerClick(tarea.id)
                             }
-                    )
+                                .align(Alignment.CenterVertically)
+                        )
+                        Text(
+                            text = tarea.tecnico,
+                            modifier = Modifier
+                                .padding(8.dp)
+                                .fillMaxWidth()
+                                .clickable {
+                                    onItemModificarClick(tarea.id)
+                                }
+                        )
+                    }
+                    // Línea separadora
+                    HorizontalDivider(color = Color.Gray, thickness = 1.dp)
                 }
-                // Línea separadora
-                HorizontalDivider(color = Color.Gray, thickness = 1.dp)
             }
         }
     }
