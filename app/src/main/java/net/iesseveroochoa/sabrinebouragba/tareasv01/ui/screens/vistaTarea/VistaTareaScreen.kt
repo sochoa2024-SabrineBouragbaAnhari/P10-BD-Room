@@ -47,6 +47,7 @@ fun VistaTareaScreen(
             horizontalAlignment = Alignment.CenterHorizontally
         ) {
             Row(modifier = Modifier) {
+                Spacer(modifier = Modifier.width(16.dp))
                 Button(onClick = onVolver) {
                     Text(text = "Volver")
                 }

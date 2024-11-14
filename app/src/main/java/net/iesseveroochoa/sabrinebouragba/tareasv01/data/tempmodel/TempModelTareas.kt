@@ -17,10 +17,6 @@ object TempModelTareas {
 
     // Función para añadir una tarea
     fun addTarea(tarea: Tarea) {
-        if (tarea.id == 0L) {
-            // Generamos un id único para la nueva tarea
-            tarea.id = Random.nextLong(1L, Long.MAX_VALUE)
-        }
         val pos = listaTareasDestination.indexOfFirst { it.id == tarea.id }
         if (pos >= 0) {
             // Si ya existe, reemplaza
