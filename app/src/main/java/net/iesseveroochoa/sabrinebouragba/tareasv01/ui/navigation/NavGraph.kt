@@ -4,7 +4,6 @@ import androidx.compose.runtime.Composable
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
-import androidx.navigation.toRoute
 import net.iesseveroochoa.sabrinebouragba.tareasv01.ui.screens.listatareas.ListaTareasScreen
 import net.iesseveroochoa.sabrinebouragba.tareasv01.ui.screens.tarea.TareaScreen
 import net.iesseveroochoa.sabrinebouragba.tareasv01.ui.screens.vistaTarea.VistaTareaScreen
@@ -14,61 +13,48 @@ fun AppNavigation() {
     val navController = rememberNavController()
     NavHost(
         navController = navController,
-        // pantalla de inicio
-        startDestination = ListaTareasDestination
+        startDestination = LISTA_TAREAS_ROUTE
     ) {
-        // ruta a la pantalla ListaTareasScreen. Pantalla inicial de la app
-        composable<ListaTareasDestination> {
+        // ruta a la pantalla ListaTareasScreen
+        composable(LISTA_TAREAS_ROUTE) {
             ListaTareasScreen(
                 onClickNueva = {
-                    // Navegamos a la pantalla TareaScreen. Pasamos null porque es una nueva tarea
-                    navController.navigate(TareaDestination())
+                    navController.navigate("$TAREA_ROUTE?posTarea=null")
                 },
-                // Navegamos a la pantalla Tarea editando una tarea existente.
-                // Pasamos la posición de la tarea en la lista
                 onItemModificarClick = { posTarea ->
-                    navController.navigate(TareaDestination(posTarea))
+                    navController.navigate("$TAREA_ROUTE?posTarea=$posTarea")
                 },
-                // Navegamos a la pantalla VistaTareaScreen.
-                // Pasamos la posición de la tarea en la lista
                 onItemVerClick = { posTarea ->
-                    navController.navigate(VistaTareasDestination(posTarea.toLong()))
+                    navController.navigate("$VISTA_TAREA_ROUTE?posTarea=$posTarea")
                 }
             )
         }
-        // ruta a la pantalla TareaScreen.
-        // backStackEntry contiene los parámetros pasados en la navegación
-        composable<TareaDestination> { backStackEntry ->
-            // recuperamos el parámetro posTarea de la navegación
-            val tarea: TareaDestination = backStackEntry.toRoute()
+
+        // ruta a la pantalla TareaScreen
+        composable("$TAREA_ROUTE?posTarea={posTarea}") { backStackEntry ->
+            val posTarea = backStackEntry.arguments?.getString("posTarea")?.toLongOrNull()
             TareaScreen(
-                idTarea = tarea.posTarea,
-                // pasamos la lambda para volver a la pantalla anterior
+                idTarea = posTarea,
                 onVolver = {
                     navController.navigateUp()
                 },
-                // pasamos la lambda para navegar a la pantalla de vista tarea si no es nueva
                 onMostrar = {
-                    if (tarea.posTarea != null)
-                        navController.navigate(VistaTareasDestination(tarea.posTarea))
+                    if (posTarea != null)
+                        navController.navigate("$VISTA_TAREA_ROUTE?posTarea=$posTarea")
                 }
             )
         }
-        // ruta a la pantalla VistaTareaScreen.
-        composable<VistaTareasDestination> { backStackEntry ->
-            // recuperamos el parámetro posTarea de la navegación
-            val tarea: VistaTareasDestination = backStackEntry.toRoute()
+
+        // ruta a la pantalla VistaTareaScreen
+        composable("$VISTA_TAREA_ROUTE?posTarea={posTarea}") { backStackEntry ->
+            val posTarea = backStackEntry.arguments?.getString("posTarea")?.toLongOrNull()
             VistaTareaScreen(
-                posTarea = tarea.posTarea,
+                posTarea = posTarea,
                 onVolver = {
                     navController.navigateUp()
                 },
                 onVolverAInicio = {
-                    // vaciamos la pila de navegación y mostramos la pantalla de inicio
-                    navController.popBackStack(
-                        ListaTareasDestination,
-                        inclusive = false
-                    )
+                    navController.popBackStack(LISTA_TAREAS_ROUTE, inclusive = false)
                 }
             )
         }
