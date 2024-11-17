@@ -52,18 +52,19 @@ object TempModelTareas {
 
         val fotos = listOf(R.drawable.foto1, R.drawable.foto2, R.drawable.foto3, R.drawable.foto4)
 
-        (1..10).forEach {
-            val tarea = Tarea(
-                categoria = (0..4).random(),
-                prioridad = (0..2).random(),
-                img = fotos.random().toString(),
-                pagado = Random.nextBoolean(),
-                estado = (0..2).random(),
-                valoracion = (0..5).random(),
-                tecnico = tecnicos.random(),
-                descripcion = "Descripción de la tarea $it: Lorem ipsum dolor sit amet."
+        for (i in 1..10) {
+            listaTareasDestination.add(
+                Tarea(
+                    categoria = (0..4).random(),
+                    prioridad = (0..2).random(),
+                    img = fotos.random().toString(),
+                    pagado = Random.nextBoolean(),
+                    estado = (0..2).random(),
+                    valoracion = (0..5).random(),
+                    tecnico = tecnicos.random(),
+                    descripcion = "Descripción de la tarea $i: Lorem ipsum dolor sit amet."
+                )
             )
-            listaTareasDestination.add(tarea)
         }
         _tareasStateFlow.value = listaTareasDestination
     }

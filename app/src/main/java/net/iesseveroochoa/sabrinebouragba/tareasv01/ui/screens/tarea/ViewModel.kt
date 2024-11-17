@@ -20,6 +20,7 @@ class TareaViewModel(application: Application): AndroidViewModel(application) {
     val listaPrioridad = context.resources.getStringArray(R.array.prioridades_array).toList()
     val listaCategoria = context.resources.getStringArray(R.array.categorias_array).toList()
     val listaEstado = context.resources.getStringArray(R.array.estadoTarea_array).toList()
+    val listaImg = context.resources.getStringArray(R.array.img_array).toList()
 
     // Tarea
     var tarea: Tarea? = null
@@ -32,7 +33,8 @@ class TareaViewModel(application: Application): AndroidViewModel(application) {
         UiStateTarea(
             prioridad = listaPrioridad[2],
             categoria = listaCategoria[0],
-            estado = listaEstado[0]
+            estado = listaEstado[0],
+            img = R.drawable.foto3.toString(),
         )
     )
     val uiStateTarea: StateFlow<UiStateTarea> = _uiStateTarea.asStateFlow()
@@ -125,7 +127,7 @@ class TareaViewModel(application: Application): AndroidViewModel(application) {
             Tarea(
                 categoria = listaCategoria.indexOf(uiStateTarea.value.categoria),
                 prioridad = listaPrioridad.indexOf(uiStateTarea.value.prioridad),
-                img = R.drawable.foto3.toString(),
+                img = tarea!!.img,
                 pagado = uiStateTarea.value.pagado,
                 estado = listaEstado.indexOf(uiStateTarea.value.estado),
                 valoracion = uiStateTarea.value.valoracion,

@@ -2,10 +2,13 @@ package net.iesseveroochoa.sabrinebouragba.tareasv01.ui.components
 
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
+import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
 import androidx.compose.material3.CardDefaults
@@ -24,10 +27,15 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.foundation.lazy.items
 import androidx.compose.material3.Card
 import androidx.compose.material3.CardColors
+import androidx.compose.ui.unit.sp
 import androidx.lifecycle.viewmodel.compose.viewModel
 import kotlinx.serialization.json.JsonNull.content
 import net.iesseveroochoa.sabrinebouragba.tareasv01.R
+import net.iesseveroochoa.sabrinebouragba.tareasv01.data.db.entities.Tarea
+import net.iesseveroochoa.sabrinebouragba.tareasv01.ui.screens.listatareas.ItemCard
 import net.iesseveroochoa.sabrinebouragba.tareasv01.ui.screens.listatareas.ListaViewModel
+import net.iesseveroochoa.sabrinebouragba.tareasv01.ui.screens.listatareas.getPrioridad
+import net.iesseveroochoa.sabrinebouragba.tareasv01.ui.theme.ColorPrioridadAlta
 
 @Composable
 fun LazyColumnCard(
@@ -45,50 +53,15 @@ fun LazyColumnCard(
         verticalArrangement = Arrangement.spacedBy(10.dp)
     ) {
         items(uiStateTarea) { tarea ->
-            itemCard(
+            ItemCard(
                 modifier = Modifier
                     .fillMaxWidth()
                     .padding(horizontal = 10.dp)
                     .clickable { onItemModificarClick(tarea.id) },
-                colors = CardDefaults.cardColors(containerColor = Color.LightGray)
-            ) {
-                Row(
-                    horizontalArrangement = Arrangement.SpaceBetween,
-                    modifier = Modifier.fillMaxWidth()
-                ) {
-                    Icon(
-                        painter = painterResource(R.drawable.ic_ver),
-                        contentDescription = "mostrar",
-                        modifier = Modifier
-                            .clickable { onItemVerClick(tarea.id) }
-                            .align(Alignment.CenterVertically)
-                    )
-                    Text(
-                        text = tarea.tecnico,
-                        modifier = Modifier
-                            .padding(8.dp)
-                            .fillMaxWidth()
-                            .clickable { onItemModificarClick(tarea.id) }
-                    )
-                }
-            }
-            // Línea separadora
-            HorizontalDivider(color = Color.Gray, thickness = 1.dp)
+                color = getPrioridad(tarea.prioridad),
+                tarea = tarea,
+            )
         }
-    }
-}
-
-@Composable
-fun itemCard(
-    modifier: Modifier = Modifier,
-    colors: CardColors = CardDefaults.cardColors(),
-    content: @Composable () -> Unit
-) {
-    Card(
-        modifier = modifier,
-        colors = colors
-    ) {
-        content()
     }
 }
 

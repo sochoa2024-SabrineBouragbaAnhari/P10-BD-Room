@@ -5,6 +5,7 @@ import net.iesseveroochoa.sabrinebouragba.tareasv01.data.db.entities.Tarea
 import net.iesseveroochoa.sabrinebouragba.tareasv01.data.tempmodel.TempModelTareas
 
 data class UiStateTarea(
+    val img: String = "",
     val categoria: String = "",
     val prioridad: String = "",
     val pagado: Boolean = false,

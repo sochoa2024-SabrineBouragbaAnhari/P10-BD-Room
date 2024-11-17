@@ -52,6 +52,7 @@ import net.iesseveroochoa.sabrinebouragba.tareasv01.ui.components.BasicRadioButt
 import net.iesseveroochoa.sabrinebouragba.tareasv01.ui.components.DialogoConfirmacion
 import net.iesseveroochoa.sabrinebouragba.tareasv01.ui.components.DynamicSelectTextField
 import net.iesseveroochoa.sabrinebouragba.tareasv01.ui.components.RatingBar
+import net.iesseveroochoa.sabrinebouragba.tareasv01.ui.components.getImagen
 
 @SuppressLint("ResourceType")
 @Composable
@@ -148,7 +149,7 @@ fun TareaScreen(
 
                     // Imagen que se ajusta al tamaño y tiene esquinas redondeadas.
                     Image(
-                        painter = painterResource(id = R.drawable.techo),
+                        painter = painterResource(id = getImagen(uiStateTarea.img)),
                         contentDescription = R.string.label_imagen.toString(),
                         contentScale = ContentScale.Crop, // Esto asegura que la imagen ocupe todo el contenedor y no quede deformada
                         modifier = Modifier.size(150.dp)
