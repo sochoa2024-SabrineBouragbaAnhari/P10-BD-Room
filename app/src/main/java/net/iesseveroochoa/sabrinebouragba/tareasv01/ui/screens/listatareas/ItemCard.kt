@@ -1,5 +1,6 @@
 package net.iesseveroochoa.sabrinebouragba.tareasv01.ui.screens.listatareas
 
+import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
@@ -17,6 +18,8 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.text.style.TextOverflow
+import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import net.iesseveroochoa.sabrinebouragba.tareasv01.R
@@ -30,27 +33,31 @@ fun ItemCard(
     tarea: Tarea
 ) {
     Card(
-        modifier = modifier.height(120.dp),
+        modifier = modifier
+            .height(120.dp)
+        ,
         colors = CardDefaults.cardColors(color)
     ) {
         Row(
             modifier = Modifier
-                .fillMaxSize()
-                .padding(8.dp),
-            verticalAlignment = Alignment.Top
+                .fillMaxSize(),
+            verticalAlignment = Alignment.CenterVertically
         ) {
             // Imagen de la tarea
-            Icon(
+            Image(
                 painter = painterResource(id = getImagen(tarea.img)),
                 contentDescription = "Imagen",
                 modifier = Modifier
-                    .size(width = 100.dp, height = 120.dp)
-                    .padding(end = 8.dp)
+                    .size(width = 100.dp, height = 120.dp),
+                contentScale = androidx.compose.ui.layout.ContentScale.Crop
             )
 
             // Información de la tarea
             Column(
-                modifier = Modifier.weight(1f),
+                modifier = Modifier
+                    .weight(1f)
+                    .padding(start = 8.dp)
+                ,
                 verticalArrangement = Arrangement.SpaceBetween
             ) {
                 // Categoría y estado
@@ -59,7 +66,7 @@ fun ItemCard(
                     modifier = Modifier.fillMaxWidth()
                 ) {
                     Icon(
-                        painter = painterResource(getEstado(tarea.estado).toInt()),
+                        painter = painterResource(getEstado(tarea.estado)),
                         contentDescription = "Estado",
                         modifier = Modifier.size(24.dp)
                     )
@@ -72,21 +79,26 @@ fun ItemCard(
                 // Técnico
                 Text(
                     text = tarea.tecnico,
-                    style = androidx.compose.ui.text.TextStyle(fontSize = 16.sp),
+                    style = androidx.compose.ui.text.TextStyle(fontSize = 16.sp, color = Color.Blue),
                     modifier = Modifier.padding(vertical = 2.dp)
                 )
 
                 // Descripción
                 Text(
-                    text = tarea.descripcion
+                    text = tarea.descripcion,
+                    maxLines = 2,
+                    style = androidx.compose.ui.text.TextStyle(fontSize = 14.sp),
+                    modifier = Modifier.padding(vertical = 2.dp),
+                    overflow = TextOverflow.Ellipsis
                 )
             }
 
             // ID
             Column(
-                horizontalAlignment = Alignment.End,
-                verticalArrangement = Arrangement.SpaceBetween,
-                modifier = Modifier.padding(start = 8.dp)
+                modifier = Modifier
+                    .padding(8.dp)
+                ,
+                verticalArrangement = Arrangement.Top
             ) {
                 Text(text = tarea.id.toString())
             }
@@ -103,11 +115,11 @@ fun getPrioridad(prioridad: Int): Color {
 }
 
 @Composable
-fun getEstado(estado: Int): String {
+fun getEstado(estado: Int): Int {
     return when(estado) {
-        0 -> R.drawable.ic_abierta.toString()
-        1 -> R.drawable.ic_en_curso.toString()
-        else -> R.drawable.ic_cerrada.toString()
+        0 -> R.drawable.ic_abierta
+        1 -> R.drawable.ic_en_curso
+        else -> R.drawable.ic_cerrada
     }
 }
 
@@ -130,4 +142,22 @@ fun getImagen(imagen: String): Int {
         "foto3" -> R.drawable.foto3
         else -> R.drawable.foto4
     }
+}
+
+@Preview
+@Composable
+fun PreviewItemCard() {
+    ItemCard(
+        tarea = Tarea(
+            categoria = 0,
+            prioridad = 0,
+            img = "foto1",
+            pagado = true,
+            estado = 0,
+            valoracion = 5,
+            tecnico = "Pepe Gotero",
+            descripcion = "Descripción de la tarea 1: Lorem ipsum dolor sit amet."
+        ),
+        color = ColorPrioridadAlta
+    )
 }

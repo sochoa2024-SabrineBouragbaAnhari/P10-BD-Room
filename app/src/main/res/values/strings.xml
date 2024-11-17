@@ -22,13 +22,6 @@
         <item>Baja</item>
     </string-array>
 
-    <string-array name="img_array">
-        <item>R.drawable.foto1</item>
-        <item>R.drawable.foto2</item>
-        <item>R.drawable.foto3</item>
-        <item>R.drawable.foto4</item>
-    </string-array>
-
     <string name="label_pagado">Pagado</string>
     <string name="label_noPagado">No pagado</string>
 

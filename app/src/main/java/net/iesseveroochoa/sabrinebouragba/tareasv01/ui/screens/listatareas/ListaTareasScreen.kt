@@ -52,8 +52,7 @@ fun ListaTareasScreen(
             LazyColumnCard(
                 modifier = Modifier.fillMaxWidth(),
                 viewModel = viewModel,
-                onItemModificarClick = onItemModificarClick,
-                onItemVerClick = onItemVerClick
+                onItemModificarClick = onItemModificarClick
             )
         }
     }

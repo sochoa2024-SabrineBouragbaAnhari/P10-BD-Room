@@ -52,7 +52,7 @@ import net.iesseveroochoa.sabrinebouragba.tareasv01.ui.components.BasicRadioButt
 import net.iesseveroochoa.sabrinebouragba.tareasv01.ui.components.DialogoConfirmacion
 import net.iesseveroochoa.sabrinebouragba.tareasv01.ui.components.DynamicSelectTextField
 import net.iesseveroochoa.sabrinebouragba.tareasv01.ui.components.RatingBar
-import net.iesseveroochoa.sabrinebouragba.tareasv01.ui.components.getImagen
+import net.iesseveroochoa.sabrinebouragba.tareasv01.ui.screens.listatareas.getImagen
 
 @SuppressLint("ResourceType")
 @Composable
