@@ -1,6 +1,9 @@
 package net.iesseveroochoa.sabrinebouragba.tareasv01.data.repository
 
 import kotlinx.coroutines.flow.Flow
+import net.iesseveroochoa.sabrinebouragba.tareasv01.TareasApplication
+import net.iesseveroochoa.sabrinebouragba.tareasv01.data.db.dao.TareasDao
+import net.iesseveroochoa.sabrinebouragba.tareasv01.data.db.database.TareasDataBase
 import net.iesseveroochoa.sabrinebouragba.tareasv01.data.db.entities.Tarea
 import net.iesseveroochoa.sabrinebouragba.tareasv01.data.tempmodel.TempModelTareas
 
@@ -9,18 +12,22 @@ import net.iesseveroochoa.sabrinebouragba.tareasv01.data.tempmodel.TempModelTare
  */
 
 object Repository {
-    // Inicia el Objeto singleton
+    // modelo de datos
+    private lateinit var modelTareas : TareasDao
+
+    // inicialización del modelo con la BD
     operator fun invoke() {
-        // Iniciamos el modelo
-        TempModelTareas
+        modelTareas = TareasDataBase
+            .getDatabase(TareasApplication.application.applicationContext)
+            .tareasDao()
     }
 
-    fun addTarea(tarea: Tarea) = TempModelTareas.addTarea(tarea)
+    //Métodos CRUD a la base de datos
+    suspend fun addTarea(tarea: Tarea)= modelTareas.addTarea(tarea)
 
-    fun delTarea(tarea: Tarea) = TempModelTareas.delTarea(tarea)
+    suspend fun delTarea(tarea: Tarea)= modelTareas.deleteTarea(tarea)
 
-    fun getAllTareas(): Flow<List<Tarea>> = TempModelTareas.getAllTareas()
+    suspend fun getTarea(id:Long)= modelTareas.getTarea(id)
 
-    fun getTarea(id: Long) = TempModelTareas.getTarea(id)
-
+    fun getAllTareas()= modelTareas.getTareas()
 }
