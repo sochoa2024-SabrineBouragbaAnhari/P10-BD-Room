@@ -1,6 +1,11 @@
 package net.iesseveroochoa.sabrinebouragba.tareasv01.data.db.entities
 
+import androidx.room.Entity
+import androidx.room.PrimaryKey
+
+@Entity(tableName = "tareas")
 data class Tarea(
+    @PrimaryKey(autoGenerate = true)
     var id: Long? = null, // id único
     val categoria: Int,
     val prioridad: Int,
@@ -28,7 +33,7 @@ data class Tarea(
         tecnico: String,
         descripcion: String
     ) : this(
-        id = generarId(),
+        id = null,
         categoria = categoria,
         prioridad = prioridad,
         img = img,
