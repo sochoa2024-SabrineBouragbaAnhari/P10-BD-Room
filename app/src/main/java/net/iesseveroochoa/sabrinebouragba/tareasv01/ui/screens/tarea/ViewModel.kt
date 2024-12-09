@@ -175,6 +175,13 @@ class TareaViewModel(application: Application): AndroidViewModel(application) {
     }
 
     suspend fun guardarTarea() {
-        Repository.addTarea(uiStateToTarea())
+        val tarea = uiStateToTarea() // Convertimos el estado a un objeto Tarea
+        if (uiStateTarea.value.esTareaNueva) {
+            // Llamar al repositorio para guardar la nueva tarea
+            Repository.addTarea(tarea)
+        } else {
+            // Llamar al repositorio para actualizar la tarea existente
+            Repository.addTarea(tarea)
+        }
     }
 }

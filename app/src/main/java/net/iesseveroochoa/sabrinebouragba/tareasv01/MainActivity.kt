@@ -1,5 +1,6 @@
 package net.iesseveroochoa.sabrinebouragba.tareasv01
 
+import android.content.Context
 import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
@@ -19,6 +20,7 @@ class MainActivity : ComponentActivity() {
         setContent {
             TareasV01Theme {
                 AppNavigation()
+
             }
         }
     }

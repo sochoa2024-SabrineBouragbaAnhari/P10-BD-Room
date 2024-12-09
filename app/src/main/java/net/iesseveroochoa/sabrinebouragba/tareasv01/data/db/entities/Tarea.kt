@@ -33,7 +33,7 @@ data class Tarea(
         tecnico: String,
         descripcion: String
     ) : this(
-        id = generarId(),
+        id = null,
         categoria = categoria,
         prioridad = prioridad,
         img = img,
