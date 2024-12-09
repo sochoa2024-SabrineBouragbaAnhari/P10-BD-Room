@@ -25,6 +25,7 @@ fun LazyColumnCard(
     onItemModificarClick: (pos: Long?) -> Unit = {}
 ) {
     val uiStateTarea by viewModel.listaTareasUiState.collectAsState()
+    //val listaTareas = uiStateTarea.listaTareas
 
     LazyColumn(
         modifier = modifier
@@ -32,7 +33,7 @@ fun LazyColumnCard(
             .padding(8.dp),
         verticalArrangement = Arrangement.spacedBy(10.dp)
     ) {
-        items(uiStateTarea) { tarea ->
+        items(uiStateTarea.listaTareas) { tarea ->
             ItemCard(
                 modifier = Modifier
                     .fillMaxWidth()

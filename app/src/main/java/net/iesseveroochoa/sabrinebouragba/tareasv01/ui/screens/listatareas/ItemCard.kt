@@ -45,7 +45,7 @@ fun ItemCard(
         ) {
             // Imagen de la tarea
             Image(
-                painter = painterResource(id = getImagen(tarea.img)),
+                painter = painterResource(id = R.drawable.foto3),
                 contentDescription = "Imagen",
                 modifier = Modifier
                     .size(width = 100.dp, height = 120.dp),
@@ -131,16 +131,6 @@ fun getCategoria(categoria: Int): String {
         2 -> "Mantenimiento"
         3 -> "Comercial"
         else -> "Otro"
-    }
-}
-
-@Composable
-fun getImagen(imagen: String): Int {
-    return when (imagen) {
-        "foto1" -> R.drawable.foto1
-        "foto2" -> R.drawable.foto2
-        "foto3" -> R.drawable.foto3
-        else -> R.drawable.foto4
     }
 }
 

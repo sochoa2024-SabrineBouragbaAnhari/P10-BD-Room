@@ -89,12 +89,19 @@ class TareaViewModel(application: Application): AndroidViewModel(application) {
             mostrarDialogo = true
         )
     }
-    //guardará los cambios, por el momento solo cierra el dialogo
+
+    /**
+     * Guardar tarea en la BD
+     */
     fun onConfirmarDialogoGuardar() {
-        guardarTarea()
+        //cierra el dialogo
         _uiStateTarea.value = _uiStateTarea.value.copy(
             mostrarDialogo = false
         )
+        //lanzamos la corrutina para guardar la tarea
+        viewModelScope.launch(Dispatchers.IO) {
+            guardarTarea()
+        }
     }
     //cierra el dialogo
     fun onCancelarDialogoGuardar() {
@@ -128,7 +135,7 @@ class TareaViewModel(application: Application): AndroidViewModel(application) {
             Tarea(
                 categoria = listaCategoria.indexOf(uiStateTarea.value.categoria),
                 prioridad = listaPrioridad.indexOf(uiStateTarea.value.prioridad),
-                img = tarea!!.img,
+                img = tarea?.img ?: "",
                 pagado = uiStateTarea.value.pagado,
                 estado = listaEstado.indexOf(uiStateTarea.value.estado),
                 valoracion = uiStateTarea.value.valoracion,
@@ -137,10 +144,10 @@ class TareaViewModel(application: Application): AndroidViewModel(application) {
             ) //si no es nueva, actualiza la tarea
         } else {
             Tarea(
-                tarea!!.id,
+                tarea?.id ?: 0L,
                 categoria = listaCategoria.indexOf(uiStateTarea.value.categoria),
                 prioridad = listaPrioridad.indexOf(uiStateTarea.value.prioridad),
-                img = tarea!!.img,
+                img = tarea?.img ?: "",
                 pagado = uiStateTarea.value.pagado,
                 estado = listaEstado.indexOf(uiStateTarea.value.estado),
                 valoracion = uiStateTarea.value.valoracion,
@@ -151,19 +158,23 @@ class TareaViewModel(application: Application): AndroidViewModel(application) {
     }
 
     fun getTarea(id: Long) {
-        tarea = Repository.getTarea(id)
-        //si no es nueva inicia la UI con los valores de la tarea
-        if (tarea != null) tareaToUiState(tarea!!)
+        // Lanzamos corrutina que nos devuelve la tarea de la BD
+        viewModelScope.launch(Dispatchers.IO) {
+            tarea = Repository.getTarea(id)
+            if (tarea != null) {
+                tareaToUiState(tarea!!)
+            } else {
+                // tarea no encontrada
+                _uiStateTarea.value = _uiStateTarea.value.copy(
+                    esTareaNueva = true, // Si no se encuentra, se asume como nueva
+                    descripcion = "",
+                    tecnico = ""
+                )
+            }
+        }
     }
 
-    fun guardarTarea() {
-        val tarea = uiStateToTarea() // Convertimos el estado a un objeto Tarea
-        if (uiStateTarea.value.esTareaNueva) {
-            // Llamar al repositorio para guardar la nueva tarea
-            Repository.addTarea(tarea)
-        } else {
-            // Llamar al repositorio para actualizar la tarea existente
-            Repository.addTarea(tarea)
-        }
+    suspend fun guardarTarea() {
+        Repository.addTarea(uiStateToTarea())
     }
 }

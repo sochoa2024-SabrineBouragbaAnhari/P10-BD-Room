@@ -1,5 +1,6 @@
 package net.iesseveroochoa.sabrinebouragba.tareasv01.data.repository
 
+import android.content.Context
 import kotlinx.coroutines.flow.Flow
 import net.iesseveroochoa.sabrinebouragba.tareasv01.TareasApplication
 import net.iesseveroochoa.sabrinebouragba.tareasv01.data.db.dao.TareasDao
@@ -12,22 +13,16 @@ import net.iesseveroochoa.sabrinebouragba.tareasv01.data.tempmodel.TempModelTare
  */
 
 object Repository {
-    // modelo de datos
-    private lateinit var modelTareas : TareasDao
+    private lateinit var tareasDao: TareasDao
 
-    // inicialización del modelo con la BD
     operator fun invoke() {
-        modelTareas = TareasDataBase
+        tareasDao = TareasDataBase
             .getDatabase(TareasApplication.application.applicationContext)
             .tareasDao()
     }
 
-    //Métodos CRUD a la base de datos
-    suspend fun addTarea(tarea: Tarea)= modelTareas.addTarea(tarea)
-
-    suspend fun delTarea(tarea: Tarea)= modelTareas.deleteTarea(tarea)
-
-    suspend fun getTarea(id:Long)= modelTareas.getTarea(id)
-
-    fun getAllTareas()= modelTareas.getTareas()
+    suspend fun addTarea(tarea: Tarea) = tareasDao.addTarea(tarea)
+    suspend fun delTarea(tarea: Tarea) = tareasDao.delTarea(tarea)
+    suspend fun getTarea(id: Long) = tareasDao.getTarea(id)
+    fun getAllTareas(): Flow<List<Tarea>> = tareasDao.getTareas()
 }

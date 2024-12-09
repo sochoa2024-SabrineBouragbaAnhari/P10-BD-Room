@@ -11,14 +11,14 @@ import net.iesseveroochoa.sabrinebouragba.tareasv01.data.db.entities.Tarea
 @Dao
 interface TareasDao {
     @Insert(onConflict = OnConflictStrategy.REPLACE)
-    suspend fun addTarea(tarea : Tarea)
+    suspend fun addTarea(tarea: Tarea)
 
     @Delete
-    suspend fun deleteTarea(tarea : Tarea)
+    suspend fun delTarea(tarea: Tarea)
 
     @Query("SELECT * FROM tareas")
-    fun getTareas() : Flow<List<Tarea>>
+    fun getTareas(): Flow<List<Tarea>>
 
     @Query("SELECT * FROM tareas WHERE id = :id")
-    suspend fun getTarea(id : Long) : Tarea
+    suspend fun getTarea(id: Long): Tarea
 }
