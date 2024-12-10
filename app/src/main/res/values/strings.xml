@@ -50,4 +50,5 @@
     <string name="label_editarTarea">Modificar Tarea</string>
     <string name="label_fav">Lista de Tareas</string>
     <string name="label_verTarea">Vista de tarea</string>
+
 </resources>

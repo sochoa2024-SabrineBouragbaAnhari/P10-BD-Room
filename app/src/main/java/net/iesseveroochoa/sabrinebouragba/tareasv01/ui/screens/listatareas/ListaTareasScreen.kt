@@ -22,6 +22,8 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.lifecycle.viewmodel.compose.viewModel
 import net.iesseveroochoa.sabrinebouragba.tareasv01.R
 import net.iesseveroochoa.sabrinebouragba.tareasv01.ui.components.AppBar
+import net.iesseveroochoa.sabrinebouragba.tareasv01.ui.components.BasicRadioButton
+import net.iesseveroochoa.sabrinebouragba.tareasv01.ui.components.BasicRadioButtonFiltro
 import net.iesseveroochoa.sabrinebouragba.tareasv01.ui.components.LazyColumnCard
 import net.iesseveroochoa.sabrinebouragba.tareasv01.ui.screens.tarea.TareaViewModel
 
@@ -35,6 +37,7 @@ fun ListaTareasScreen(
     onItemVerClick: (pos: Long?) -> Unit = {}
 ) {
     val uiStateTa by viewModelTarea.uiState.collectAsState()
+    val uiStateFiltro by viewModel.uiStateFiltro.collectAsState()
 
     Scaffold(
         topBar = {
@@ -57,6 +60,14 @@ fun ListaTareasScreen(
                 .fillMaxSize()
                 .padding(padding)
         ) {
+
+            // Filtro Estado
+            BasicRadioButtonFiltro(
+                listaOpciones = viewModel.listaFiltroEstado,
+                operacionSeleccionada = uiStateFiltro.filtroEstrado,
+                onOptionSelected = { viewModel.onCheckedChangedFiltroEstado(it)}
+            )
+
             LazyColumnCard(
                 modifier = Modifier.fillMaxWidth(),
                 viewModel = viewModel,

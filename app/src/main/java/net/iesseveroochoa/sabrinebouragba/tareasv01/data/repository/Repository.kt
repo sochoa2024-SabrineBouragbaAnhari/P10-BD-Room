@@ -1,12 +1,10 @@
 package net.iesseveroochoa.sabrinebouragba.tareasv01.data.repository
 
-import android.content.Context
 import kotlinx.coroutines.flow.Flow
 import net.iesseveroochoa.sabrinebouragba.tareasv01.TareasApplication
 import net.iesseveroochoa.sabrinebouragba.tareasv01.data.db.dao.TareasDao
 import net.iesseveroochoa.sabrinebouragba.tareasv01.data.db.database.TareasDataBase
 import net.iesseveroochoa.sabrinebouragba.tareasv01.data.db.entities.Tarea
-import net.iesseveroochoa.sabrinebouragba.tareasv01.data.tempmodel.TempModelTareas
 
 /**
  * Se encarga de manejar la lógica de obtención y almacenamiebto de datos
@@ -24,5 +22,6 @@ object Repository {
     suspend fun addTarea(tarea: Tarea) = tareasDao.addTarea(tarea)
     suspend fun delTarea(tarea: Tarea) = tareasDao.delTarea(tarea)
     suspend fun getTarea(id: Long) = tareasDao.getTarea(id)
-    fun getAllTareas(): Flow<List<Tarea>> = tareasDao.getTareas()
+    fun getAllTareas(): Flow<List<Tarea>> = tareasDao.getAllTareas()
+    fun getTareasByEstado(estado: Int) = tareasDao.getTareasPorEstado(estado)
 }

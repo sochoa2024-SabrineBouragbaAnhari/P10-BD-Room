@@ -41,8 +41,7 @@ fun ItemCard(
     modifier: Modifier = Modifier,
     color: Color,
     tarea: Tarea,
-    onClickBorrar: (Long?) -> Unit = {},
-    viewModelTarea: TareaViewModel = viewModel()
+    onClickBorrar: (Long?) -> Unit = {}
 ) {
     Card(
         modifier = modifier

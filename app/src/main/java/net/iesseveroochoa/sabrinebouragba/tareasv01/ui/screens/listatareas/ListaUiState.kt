@@ -10,3 +10,7 @@ data class UiStateDialogo(
     val mostrarDialogoBorrar: Boolean = false,
     val tareaBorrar: Tarea? = null
 )
+
+data class UiStateFiltro(
+    val filtroEstrado: String
+)
