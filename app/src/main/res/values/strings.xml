@@ -37,9 +37,13 @@
     <string name="tecnico">Técnico</string>
     <string name="descripcion">Descripción</string>
     <string name="label_tareaG">Tarea guardada</string>
+    <string name="label_tareaB">Tarea borrada</string>
 
     <string name="label_atencion">Atención</string>
     <string name="label_confirmacion">¿Desea guardar los cambios?</string>
+    <string name="label_confirmacionBorrar">¿Desea borrar la tarea?</string>
+    <string name="aceptar">Aceptar</string>
+    <string name="cancelar">Cancelar</string>
 
     <string name="label_atras">Ir atrás</string>
     <string name="label_nuevaTarea">Nueva Tarea</string>

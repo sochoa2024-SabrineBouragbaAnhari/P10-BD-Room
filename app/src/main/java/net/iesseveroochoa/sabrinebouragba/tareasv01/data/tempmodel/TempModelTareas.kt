@@ -39,38 +39,38 @@ object TempModelTareas {
     fun getTarea(id: Long): Tarea? = listaTareasDestination.find { it.id == id }
 
     // Método para inicializar la lista de tareas con datos de ejemplo
-    fun iniciaPruebaTareas() {
-        val tecnicos = listOf(
-            "Pepe Gotero",
-            "Sacarino Pómez",
-            "Mortadelo Fernández",
-            "Filemón López",
-            "Zipi Climent",
-            "Zape Gómez",
-            "Pepito Grillo"
-        )
-
-        val fotos = listOf(R.drawable.foto1, R.drawable.foto2, R.drawable.foto3, R.drawable.foto4)
-
-        for (i in 1..10) {
-            listaTareasDestination.add(
-                Tarea(
-                    categoria = (0..4).random(),
-                    prioridad = (0..2).random(),
-                    img = fotos.random().toString(),
-                    pagado = Random.nextBoolean(),
-                    estado = (0..2).random(),
-                    valoracion = (0..5).random(),
-                    tecnico = tecnicos.random(),
-                    descripcion = "Descripción de la tarea $i: Lorem ipsum dolor sit amet."
-                )
-            )
-        }
-        _tareasStateFlow.value = listaTareasDestination
-    }
-
+//    fun iniciaPruebaTareas() {
+//        val tecnicos = listOf(
+//            "Pepe Gotero",
+//            "Sacarino Pómez",
+//            "Mortadelo Fernández",
+//            "Filemón López",
+//            "Zipi Climent",
+//            "Zape Gómez",
+//            "Pepito Grillo"
+//        )
+//
+//        val fotos = listOf(R.drawable.foto1, R.drawable.foto2, R.drawable.foto3, R.drawable.foto4)
+//
+//        for (i in 1..10) {
+//            listaTareasDestination.add(
+//                Tarea(
+//                    categoria = (0..4).random(),
+//                    prioridad = (0..2).random(),
+//                    img = fotos.random().toString(),
+//                    pagado = Random.nextBoolean(),
+//                    estado = (0..2).random(),
+//                    valoracion = (0..5).random(),
+//                    tecnico = tecnicos.random(),
+//                    descripcion = "Descripción de la tarea $i: Lorem ipsum dolor sit amet."
+//                )
+//            )
+//        }
+//        _tareasStateFlow.value = listaTareasDestination
+//    }
+//
     // Inicializar el objeto Singleton
     operator fun invoke() {
-        iniciaPruebaTareas()
+        //iniciaPruebaTareas()
     }
 }

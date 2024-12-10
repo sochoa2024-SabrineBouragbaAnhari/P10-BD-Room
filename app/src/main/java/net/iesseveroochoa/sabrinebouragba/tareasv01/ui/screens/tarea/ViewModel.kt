@@ -13,6 +13,8 @@ import kotlinx.coroutines.launch
 import net.iesseveroochoa.sabrinebouragba.tareasv01.R
 import net.iesseveroochoa.sabrinebouragba.tareasv01.data.db.entities.Tarea
 import net.iesseveroochoa.sabrinebouragba.tareasv01.data.repository.Repository
+import net.iesseveroochoa.sabrinebouragba.tareasv01.data.repository.Repository.delTarea
+import net.iesseveroochoa.sabrinebouragba.tareasv01.ui.screens.listatareas.UiStateDialogo
 import net.iesseveroochoa.sabrinebouragba.tareasv01.ui.theme.ColorPrioridadAlta
 
 class TareaViewModel(application: Application): AndroidViewModel(application) {
@@ -39,6 +41,10 @@ class TareaViewModel(application: Application): AndroidViewModel(application) {
         )
     )
     val uiStateTarea: StateFlow<UiStateTarea> = _uiStateTarea.asStateFlow()
+
+    // Estado de la UI
+    private val _uiState = MutableStateFlow(UiStateDialogo())
+    val uiState: StateFlow<UiStateDialogo> = _uiState.asStateFlow()
 
     // Funciones para actualizar cada prioridad en la UI
     fun onValueChangePrioridad(nuevaPrioridad: String) {
@@ -183,5 +189,33 @@ class TareaViewModel(application: Application): AndroidViewModel(application) {
             // Llamar al repositorio para actualizar la tarea existente
             Repository.addTarea(tarea)
         }
+    }
+
+    // Función para mostrar el diálogo de borrar
+    fun onMostrarDialogoBorrar(tarea: Tarea) {
+        _uiState.value = _uiState.value.copy(
+            mostrarDialogoBorrar = true,
+            tareaBorrar = tarea
+        )
+    }
+
+    // Función para cancelar el diálogo
+    fun cancelarDialogo() {
+        _uiState.value = _uiState.value.copy(mostrarDialogoBorrar = false)
+    }
+
+    // Función para aceptar el borrado de la tarea
+    fun aceptarDialogo() {
+        _uiState.value.tareaBorrar?.let {
+            // Llamamos al repositorio para eliminar la tarea
+            viewModelScope.launch(Dispatchers.IO) {
+                delTarea(it) // Elimina la tarea de la base de datos
+            }
+        }
+        // Cierra el diálogo
+        _uiState.value = _uiState.value.copy(
+            mostrarDialogoBorrar = false,
+            tareaBorrar = null
+        )
     }
 }

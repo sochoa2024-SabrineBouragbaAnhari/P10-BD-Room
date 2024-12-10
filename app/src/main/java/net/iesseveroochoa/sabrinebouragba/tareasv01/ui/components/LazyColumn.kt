@@ -14,6 +14,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.lifecycle.viewmodel.compose.viewModel
+import net.iesseveroochoa.sabrinebouragba.tareasv01.data.db.entities.Tarea
 import net.iesseveroochoa.sabrinebouragba.tareasv01.ui.screens.listatareas.ItemCard
 import net.iesseveroochoa.sabrinebouragba.tareasv01.ui.screens.listatareas.ListaViewModel
 import net.iesseveroochoa.sabrinebouragba.tareasv01.ui.screens.listatareas.getPrioridad
@@ -22,7 +23,8 @@ import net.iesseveroochoa.sabrinebouragba.tareasv01.ui.screens.listatareas.getPr
 fun LazyColumnCard(
     modifier: Modifier = Modifier,
     viewModel: ListaViewModel = viewModel(),
-    onItemModificarClick: (pos: Long?) -> Unit = {}
+    onItemModificarClick: (pos: Long?) -> Unit = {},
+    onItemEliminarClick: (pos: Tarea) -> Unit = {}
 ) {
     val uiStateTarea by viewModel.listaTareasUiState.collectAsState()
     //val listaTareas = uiStateTarea.listaTareas
@@ -41,6 +43,7 @@ fun LazyColumnCard(
                     .clickable { onItemModificarClick(tarea.id) },
                 color = getPrioridad(tarea.prioridad),
                 tarea = tarea,
+                onClickBorrar = { onItemEliminarClick(tarea) }
             )
         }
     }
