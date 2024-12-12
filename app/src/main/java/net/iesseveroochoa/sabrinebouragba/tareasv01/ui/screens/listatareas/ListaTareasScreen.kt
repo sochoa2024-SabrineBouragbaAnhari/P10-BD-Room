@@ -6,7 +6,6 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Add
-import androidx.compose.material.icons.filled.Delete
 import androidx.compose.material3.AlertDialog
 import androidx.compose.material3.FloatingActionButton
 import androidx.compose.material3.Icon
@@ -22,7 +21,6 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.lifecycle.viewmodel.compose.viewModel
 import net.iesseveroochoa.sabrinebouragba.tareasv01.R
 import net.iesseveroochoa.sabrinebouragba.tareasv01.ui.components.AppBar
-import net.iesseveroochoa.sabrinebouragba.tareasv01.ui.components.BasicRadioButton
 import net.iesseveroochoa.sabrinebouragba.tareasv01.ui.components.BasicRadioButtonFiltro
 import net.iesseveroochoa.sabrinebouragba.tareasv01.ui.components.LazyColumnCard
 import net.iesseveroochoa.sabrinebouragba.tareasv01.ui.screens.tarea.TareaViewModel
